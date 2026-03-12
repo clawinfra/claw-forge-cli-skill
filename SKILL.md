@@ -118,8 +118,9 @@ claw-forge run --dry-run
 # Use hashline edit mode (better for weaker models — 6.7%→68.3% benchmark)
 claw-forge run --edit-mode hashline
 
-# Full middleware stack (hashline + loop detection + pre-completion checklist)
-claw-forge run --edit-mode hashline --loop-detect-threshold 5 --verify-on-exit
+# ^ That's already the full Config E stack — loop detection (5) + verify-on-exit are ON by default.
+# To disable for fast debugging only:
+# claw-forge run --no-verify-on-exit --loop-detect-threshold 0
 ```
 
 ### 5 — Check progress
@@ -289,8 +290,8 @@ claw-forge run --yolo --concurrency 8
 - **`--loop-detect-threshold`** (default: 5) breaks doom loops — when an agent edits the same file repeatedly, it gets a structured "reconsider" prompt. Set to 0 to disable.
 - **`--verify-on-exit`** (default: on) forces the agent to re-read the task spec and confirm all acceptance criteria before closing the session. Use `--no-verify-on-exit` for fast iterative debugging.
 - **`--auto-push`** (default: **off** — must opt in) automatically `git push` to remote after agent completion. `--auto-push /path/to/repo` or `--auto-push /path/to/repo:remote`. Skips silently if remote doesn't exist. Never on by default.
-- **Production stack:** `--edit-mode hashline --loop-detect-threshold 5 --verify-on-exit` — Config E, achieves **100%** on claw-forge-bench (30 tasks, Opus 4.6).
-- **Fully autonomous:** add `--auto-push /path/to/repo` to push commits without any manual step.
+- **Default IS Config E (minus hashline):** `loop-detect=5` and `verify-on-exit` are on by default. Just add `--edit-mode hashline` for 100% Config E.
+- **Fully autonomous:** add `--auto-push /path/to/repo` (explicit opt-in, network write) to push commits without any manual step.
 - **`claw-forge status`** tells you exactly what to do next — trust it.
 - **`claw-forge ui`** is the best way to monitor long runs — live logs per agent, cost tracking, dependency graph.
 - Provider API keys go in `.env` (never commit). `.env.example` is the template.
