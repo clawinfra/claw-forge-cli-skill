@@ -117,6 +117,9 @@ claw-forge run --dry-run
 
 # Use hashline edit mode (better for weaker models — 6.7%→68.3% benchmark)
 claw-forge run --edit-mode hashline
+
+# Full middleware stack (hashline + loop detection + pre-completion checklist)
+claw-forge run --edit-mode hashline --loop-detect-threshold 5 --verify-on-exit
 ```
 
 ### 5 — Check progress
@@ -283,6 +286,9 @@ claw-forge run --yolo --concurrency 8
 - **Planning quality = outcome quality.** Don't skimp on the planning model. Use Opus for `plan`.
 - **More concurrency ≠ always better.** Each agent needs context. 3–5 is usually the sweet spot.
 - **`--edit-mode hashline`** dramatically helps weaker/cheaper models that struggle with exact text matching.
+- **`--loop-detect-threshold`** (default: 5) breaks doom loops — when an agent edits the same file repeatedly, it gets a structured "reconsider" prompt. Set to 0 to disable.
+- **`--verify-on-exit`** (default: on) forces the agent to re-read the task spec and confirm all acceptance criteria before closing the session. Use `--no-verify-on-exit` for fast iterative debugging.
+- **Production stack:** `--edit-mode hashline --loop-detect-threshold 5 --verify-on-exit` — this is Config E in Terminal Bench 2.0, the highest-performing configuration.
 - **`claw-forge status`** tells you exactly what to do next — trust it.
 - **`claw-forge ui`** is the best way to monitor long runs — live logs per agent, cost tracking, dependency graph.
 - Provider API keys go in `.env` (never commit). `.env.example` is the template.
