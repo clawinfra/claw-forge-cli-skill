@@ -6,6 +6,7 @@ description: >
   ui. Use when a user asks to build a project with claw-forge, run agents on a
   codebase, generate a feature DAG, manage the provider pool, or fix bugs with
   the reproduce-first protocol.
+repo: https://github.com/clawinfra/claw-forge-cli-skill
 metadata:
   {
     "openclaw": {
