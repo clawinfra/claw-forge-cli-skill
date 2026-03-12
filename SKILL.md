@@ -288,7 +288,9 @@ claw-forge run --yolo --concurrency 8
 - **`--edit-mode hashline`** dramatically helps weaker/cheaper models that struggle with exact text matching.
 - **`--loop-detect-threshold`** (default: 5) breaks doom loops — when an agent edits the same file repeatedly, it gets a structured "reconsider" prompt. Set to 0 to disable.
 - **`--verify-on-exit`** (default: on) forces the agent to re-read the task spec and confirm all acceptance criteria before closing the session. Use `--no-verify-on-exit` for fast iterative debugging.
-- **Production stack:** `--edit-mode hashline --loop-detect-threshold 5 --verify-on-exit` — this is Config E in Terminal Bench 2.0, the highest-performing configuration.
+- **`--auto-push`** (default: **off** — must opt in) automatically `git push` to remote after agent completion. `--auto-push /path/to/repo` or `--auto-push /path/to/repo:remote`. Skips silently if remote doesn't exist. Never on by default.
+- **Production stack:** `--edit-mode hashline --loop-detect-threshold 5 --verify-on-exit` — Config E, achieves **100%** on claw-forge-bench (30 tasks, Opus 4.6).
+- **Fully autonomous:** add `--auto-push /path/to/repo` to push commits without any manual step.
 - **`claw-forge status`** tells you exactly what to do next — trust it.
 - **`claw-forge ui`** is the best way to monitor long runs — live logs per agent, cost tracking, dependency graph.
 - Provider API keys go in `.env` (never commit). `.env.example` is the template.
