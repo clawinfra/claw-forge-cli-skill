@@ -58,6 +58,14 @@ Creates:
 - `claw-forge.yaml` — provider pool config
 - `.env.example` — API key template
 
+Before planning or running, copy the template and add your provider keys —
+both `plan` and `run` need them:
+
+```bash
+cp .env.example .env
+# then edit .env and set ANTHROPIC_API_KEY (and any backup keys)
+```
+
 ### 2 — Write a spec
 
 Create `app_spec.txt` (plain text) or `app_spec.xml` (structured XML):
